@@ -6,7 +6,7 @@ import com.example.denis.weather.support.WeatherIcon;
 import java.util.ArrayList;
 import java.util.List;
 
-class IconSingleton {
+public class IconSingleton {
     private static final IconSingleton ourInstance = new IconSingleton();
 
     List<WeatherIcon> icons = new ArrayList<>();
@@ -15,7 +15,7 @@ class IconSingleton {
         return icons;
     }
 
-    static IconSingleton getInstance() {
+  public static IconSingleton getInstance() {
         return ourInstance;
     }
 

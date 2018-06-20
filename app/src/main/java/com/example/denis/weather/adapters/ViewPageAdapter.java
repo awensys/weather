@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.denis.weather.fragments.DailyWeatherFragment;
 import com.example.denis.weather.fragments.HourlyWeatherFragment;
 import com.example.denis.weather.fragments.NowWeatherFragment;
+import com.example.denis.weather.singletons.IconSingleton;
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
 
@@ -18,7 +19,7 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new NowWeatherFragment();
+            return NowWeatherFragment.newInstance(IconSingleton.getInstance().getIcons().get(3));
         } else if(position==1){
             return  new HourlyWeatherFragment();
         }else if(position==2){
