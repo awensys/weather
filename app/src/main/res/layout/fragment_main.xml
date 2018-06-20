@@ -7,10 +7,24 @@
 
         <variable
             name="viewModel"
-            type="com.example.denis.weather.MainFragmentVM" />
+            type="com.example.denis.weather.viewModels.MainFragmentVM" />
     </data>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_refresh"
+            android:text="@string/refresh"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

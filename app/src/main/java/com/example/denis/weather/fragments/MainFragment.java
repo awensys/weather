@@ -1,7 +1,8 @@
-package com.example.denis.weather;
+package com.example.denis.weather.fragments;
 
-import com.example.denis.weather.R;
 import com.example.denis.weather.BR;
+import com.example.denis.weather.R;
+import com.example.denis.weather.viewModels.MainFragmentVM;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 import com.example.denis.weather.databinding.FragmentMainBinding;
 
