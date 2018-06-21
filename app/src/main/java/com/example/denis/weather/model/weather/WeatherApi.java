@@ -1,4 +1,4 @@
-package com.example.denis.weather.weather;
+package com.example.denis.weather.model.weather;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

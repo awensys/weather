@@ -1,7 +1,7 @@
-package com.example.denis.weather.singletons;
+package com.example.denis.weather.model.singletons;
 
 import com.example.denis.weather.R;
-import com.example.denis.weather.support.WeatherIcon;
+import com.example.denis.weather.model.support.WeatherIcon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.List;
 public class IconSingleton {
     private static final IconSingleton ourInstance = new IconSingleton();
 
-    List<WeatherIcon> icons = new ArrayList<>();
+    ArrayList<WeatherIcon> icons = new ArrayList<>();
 
-    public List<WeatherIcon> getIcons() {
+    public ArrayList<WeatherIcon> getIcons() {
         return icons;
     }
 

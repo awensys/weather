@@ -1,13 +1,14 @@
 
-package com.example.denis.weather.weather;
+package com.example.denis.weather.model.weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Currently implements Parcelable
+public class Currently implements Parcelable, Serializable
 {
 
     private Integer time;

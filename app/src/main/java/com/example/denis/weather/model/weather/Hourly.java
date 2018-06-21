@@ -1,41 +1,42 @@
 
-package com.example.denis.weather.weather;
+package com.example.denis.weather.model.weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Daily implements Parcelable
+public class Hourly implements Parcelable,Serializable
 {
 
     private String summary;
     private String icon;
-    private List<Datum_> data = null;
+    private List<Datum> data = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    public final static Creator<Daily> CREATOR = new Creator<Daily>() {
+    public final static Creator<Hourly> CREATOR = new Creator<Hourly>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Daily createFromParcel(Parcel in) {
-            return new Daily(in);
+        public Hourly createFromParcel(Parcel in) {
+            return new Hourly(in);
         }
 
-        public Daily[] newArray(int size) {
-            return (new Daily[size]);
+        public Hourly[] newArray(int size) {
+            return (new Hourly[size]);
         }
 
     }
     ;
 
-    protected Daily(Parcel in) {
+    protected Hourly(Parcel in) {
         this.summary = ((String) in.readValue((String.class.getClassLoader())));
         this.icon = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.data, (com.example.denis.weather.weather.Datum_.class.getClassLoader()));
+        in.readList(this.data, (Datum.class.getClassLoader()));
         this.additionalProperties = ((Map<String, Object> ) in.readValue((Map.class.getClassLoader())));
     }
 
@@ -43,7 +44,7 @@ public class Daily implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public Daily() {
+    public Hourly() {
     }
 
     /**
@@ -52,7 +53,7 @@ public class Daily implements Parcelable
      * @param icon
      * @param data
      */
-    public Daily(String summary, String icon, List<Datum_> data) {
+    public Hourly(String summary, String icon, List<Datum> data) {
         super();
         this.summary = summary;
         this.icon = icon;
@@ -75,11 +76,11 @@ public class Daily implements Parcelable
         this.icon = icon;
     }
 
-    public List<Datum_> getData() {
+    public List<Datum> getData() {
         return data;
     }
 
-    public void setData(List<Datum_> data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
 
@@ -104,7 +105,7 @@ public class Daily implements Parcelable
 
     @Override
     public String toString() {
-        return "Daily{" +
+        return "Hourly{" +
                 "summary='" + summary + '\'' +
                 ", icon='" + icon + '\'' +
                 ", data=" + data +

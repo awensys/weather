@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.NowWeatherFragment">
+    tools:context=".view.fragments.NowWeatherFragment">
 
     <TextView
         android:layout_marginTop="10dp"
@@ -39,7 +39,7 @@
 
     <TextView
         android:layout_below="@+id/divider_image_view"
-        android:id="@+id/description_text_view"
+        android:id="@+id/summary_text_view"
         android:textSize="20dp"
         android:text="Clear sky"
         android:layout_centerHorizontal="true"

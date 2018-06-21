@@ -1,4 +1,4 @@
-package com.example.denis.weather.fragments;
+package com.example.denis.weather.view.fragments;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.example.denis.weather.BR;
 import com.example.denis.weather.R;
-import com.example.denis.weather.adapters.ViewPageAdapter;
+import com.example.denis.weather.view.adapters.ViewPageAdapter;
 import com.example.denis.weather.viewModels.MainFragmentVM;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 import com.example.denis.weather.databinding.FragmentMainBinding;
@@ -22,6 +22,8 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
         viewPager.setAdapter(new ViewPageAdapter(getChildFragmentManager()));
 
     }
+
+
 
     public MainFragment() {
         // Required empty public constructor

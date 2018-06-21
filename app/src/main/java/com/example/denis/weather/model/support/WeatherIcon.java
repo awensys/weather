@@ -1,4 +1,4 @@
-package com.example.denis.weather.support;
+package com.example.denis.weather.model.support;
 
 import android.os.Parcel;
 import android.os.Parcelable;
