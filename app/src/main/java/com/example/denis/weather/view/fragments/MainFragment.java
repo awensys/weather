@@ -2,27 +2,34 @@ package com.example.denis.weather.view.fragments;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.example.denis.weather.BR;
 import com.example.denis.weather.R;
 import com.example.denis.weather.view.adapters.ViewPageAdapter;
+
 import com.example.denis.weather.viewModels.MainFragmentVM;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 import com.example.denis.weather.databinding.FragmentMainBinding;
 
+import java.util.Objects;
 
-public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBinding> {
+
+public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBinding>  implements MainFragmentVM.OnUpdateViewPager{
+    public static final String TAG = "MainFragment";
     ViewPager viewPager;
+    public ViewPageAdapter viewPageAdapter;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new ViewPageAdapter(getChildFragmentManager()));
+        //TODO почему єтот адаптер null?
+        viewPageAdapter = new ViewPageAdapter(getChildFragmentManager());
+        viewPager.setAdapter(viewPageAdapter);
 
     }
-
 
 
     public MainFragment() {
@@ -31,10 +38,14 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
 
     public static MainFragment newInstance() {
         return new MainFragment();
+
+
     }
 
     @Override
     protected MainFragmentVM onCreateViewModel(FragmentMainBinding binding) {
+
+
         return new MainFragmentVM(this);
     }
 
@@ -48,4 +59,10 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
         return R.layout.fragment_main;
     }
 
+
+    @Override
+    public void onUpdateView() {
+        Log.i(TAG, "onUpdateView: main fragment get click");
+   viewPager.getAdapter().notifyDataSetChanged();
+    }
 }

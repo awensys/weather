@@ -40,7 +40,7 @@
     <TextView
         android:layout_below="@+id/divider_image_view"
         android:id="@+id/summary_text_view"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:text="Clear sky"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.denis.weather.view.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,7 +12,6 @@ import com.example.denis.weather.model.weather.Weather;
 import com.example.denis.weather.view.fragments.DailyWeatherFragment;
 import com.example.denis.weather.view.fragments.HourlyWeatherFragment;
 import com.example.denis.weather.view.fragments.NowWeatherFragment;
-import com.example.denis.weather.model.singletons.IconSingleton;
 import com.example.denis.weather.viewModels.MainFragmentVM;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,36 +23,40 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
 
     public static final String TAG = "TAG";
     Weather weather;
-    WriteObjectFile writeObjectFile;
+
 
     public ViewPageAdapter(FragmentManager fm) {
         super(fm);
-
-
     }
 
     @Override
-    public void startUpdate(ViewGroup container) {
-        super.startUpdate(container);
-        String mJsonString = WriteObjectFile.readObject(MainFragmentVM.FILENAME, container.getContext()).toString();
-        JsonParser parser = new JsonParser();
-        JsonElement mJson = parser.parse(mJsonString);
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
+    public Object instantiateItem(ViewGroup container, int position) {
+        try {
+            String mJsonString = WriteObjectFile.readObject(MainFragmentVM.FILENAME, container.getContext()).toString();
 
-        weather = gson.fromJson(mJson, Weather.class);
-        Log.i(TAG, "finishUpdate: "+weather.getTimezone());
+            JsonParser parser = new JsonParser();
+            JsonElement mJson = parser.parse(mJsonString);
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+            weather = gson.fromJson(mJson, Weather.class);
+            Log.i(TAG, "finishUpdate: " + weather.getTimezone());
+        } catch (NullPointerException e) {
+
+        }
+        return super.instantiateItem(container, position);
     }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
 
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-
-            NowWeatherFragment fragment = NowWeatherFragment.newInstance(weather);
-
-            return fragment;
+            return NowWeatherFragment.newInstance(weather);
         } else if (position == 1) {
             return new HourlyWeatherFragment();
         } else if (position == 2) {
@@ -65,4 +69,6 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 3;
     }
+
+
 }
