@@ -16,10 +16,11 @@ import com.example.denis.weather.databinding.FragmentMainBinding;
 import java.util.Objects;
 
 
-public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBinding>  implements MainFragmentVM.OnUpdateViewPager{
+public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBinding> implements MainFragmentVM.OnUpdateViewPager {
     public static final String TAG = "MainFragment";
     ViewPager viewPager;
     public ViewPageAdapter viewPageAdapter;
+    public static MainFragment instance;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -34,10 +35,17 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
 
     public MainFragment() {
         // Required empty public constructor
+        if (instance != null) {
+            viewPageAdapter = newInstance().viewPageAdapter;
+            viewPager = newInstance().viewPager;
+        }
     }
 
     public static MainFragment newInstance() {
-        return new MainFragment();
+        if (instance == null) {
+            instance = new MainFragment();
+        }
+        return instance;
 
 
     }
@@ -63,6 +71,6 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
     @Override
     public void onUpdateView() {
         Log.i(TAG, "onUpdateView: main fragment get click");
-   viewPager.getAdapter().notifyDataSetChanged();
+        viewPageAdapter.notifyDataSetChanged();
     }
 }
