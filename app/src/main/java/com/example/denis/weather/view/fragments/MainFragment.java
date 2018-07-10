@@ -26,7 +26,6 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewPager = view.findViewById(R.id.view_pager);
-        //TODO почему єтот адаптер null?
         viewPageAdapter = new ViewPageAdapter(getChildFragmentManager());
         viewPager.setAdapter(viewPageAdapter);
 
