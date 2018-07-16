@@ -13,12 +13,13 @@
         android:id="@+id/toolbar"
         android:layout_height="?attr/actionBarSize"
         android:padding="3dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_width="match_parent"
         android:background="?attr/colorPrimary"
         android:orientation="horizontal"/>
 
     <FrameLayout
+        android:layout_below="@id/toolbar"
         android:id="@+id/fragment_place"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

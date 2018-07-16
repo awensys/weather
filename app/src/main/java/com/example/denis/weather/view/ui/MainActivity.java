@@ -7,6 +7,7 @@ import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.model.support.SaveLoadPreferences;
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
     public static final String TAG = "MainActivity";
 
     MainFragment mainFragment = MainFragment.newInstance();
-    GoogleMapFragment googleMapFragment = GoogleMapFragment.newInstance();
     Toolbar toolbar;
 
     @Override
@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         getSupportFragmentManager()
@@ -44,11 +43,13 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
-        MenuItem menu_location = menu.findItem(R.id.menu_location_button);
         MenuItem menu_map = menu.findItem(R.id.menu_map_button);
         MenuItem menu_settings = menu.findItem(R.id.menu_settings_button);
         MenuItem menu_info = menu.findItem(R.id.menu_info_button);
 
+        menu_map.setOnMenuItemClickListener(this);
+        menu_settings.setOnMenuItemClickListener(this);
+        menu_info.setOnMenuItemClickListener(this);
 
 
         return true;
@@ -57,10 +58,14 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
     @Override
     public void onButtonRefreshClick() {
 
-//                MainFragmentVM test = new MainFragmentVM(new MainFragment());
-//        test.updateWeather(48.5, 35.0, this);
-
-
+        try {
+            double lt = Double.parseDouble(SaveLoadPreferences.loadText(this, GoogleMapFragment.LATITUDE));
+            double ln = Double.parseDouble(SaveLoadPreferences.loadText(this, GoogleMapFragment.LONGITUDE));
+            MainFragmentVM test = new MainFragmentVM(new MainFragment());
+            test.updateWeather(lt, ln, this);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -72,11 +77,9 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
 
         double lt = Double.parseDouble(SaveLoadPreferences.loadText(this, GoogleMapFragment.LATITUDE));
         double ln = Double.parseDouble(SaveLoadPreferences.loadText(this, GoogleMapFragment.LONGITUDE));
-
-
         MainFragmentVM test = new MainFragmentVM(new MainFragment());
         test.updateWeather(lt, ln, this);
-
+        GoogleMapFragment.mapFragment = null;
 
     }
 
@@ -87,15 +90,18 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
         switch (menuItem.getItemId()) {
             case R.id.menu_map_button:
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.fragment_place, googleMapFragment)
-                        .addToBackStack("1")
-                        .commit();
+                if (GoogleMapFragment.mapFragment == null) {
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.fragment_place, GoogleMapFragment.newInstance())
+                            .addToBackStack("1")
+                            .commit();
+                }
+
+
                 break;
-            case R.id.menu_location_button:
-                Log.i(TAG, "onMenuItemClick: ");
-                break;
+
             case R.id.menu_settings_button:
                 break;
             case R.id.menu_info_button:

@@ -28,7 +28,7 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
     public static final String LOCATION_NAME = "LocationName";
 
     GoogleMap gMap;
-    SupportMapFragment mapFragment;
+    public static SupportMapFragment mapFragment;
     OnFinishMapFragment onFinish;
     Context context;
 
@@ -77,7 +77,7 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
         double lt = 48.5;
         double ln = 35;
 
-        if (SaveLoadPreferences.loadText(getActivity(), LATITUDE)!=null) {
+        if (SaveLoadPreferences.loadText(getActivity(), LATITUDE) != null) {
             lt = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), LATITUDE));
             ln = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), LONGITUDE));
         }
@@ -91,7 +91,7 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
     public void onMapClick(LatLng latLng) {
         SaveLoadPreferences.saveText(getActivity(), LATITUDE, String.valueOf(latLng.latitude));
         SaveLoadPreferences.saveText(getActivity(), LONGITUDE, String.valueOf(latLng.longitude));
-        SaveLoadPreferences.saveText(getActivity(), LOCATION_NAME, Geocode.getAddress(getContext(),latLng.latitude,latLng.longitude));
+        SaveLoadPreferences.saveText(getActivity(), LOCATION_NAME, Geocode.getAddress(getContext(), latLng.latitude, latLng.longitude));
         onFinish.onFinish();
 
 
