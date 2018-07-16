@@ -6,10 +6,13 @@
     tools:context=".view.fragments.NowWeatherFragment">
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:paddingTop="5dp"
         android:layout_centerHorizontal="true"
         android:textSize="16dp"
+        android:textColor="@color/colorBlack"
         android:text="updated: "
+        android:textAlignment="center"
         android:id="@+id/updated_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -27,6 +30,7 @@
         android:layout_below="@id/icon_place"
         android:textSize="80dp"
         android:text="25"
+        android:textColor="@color/colorBlack"
         android:id="@+id/temperature_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -42,6 +46,7 @@
         android:id="@+id/summary_text_view"
         android:textSize="30dp"
         android:text="Clear sky"
+        android:textColor="@color/colorBlack"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

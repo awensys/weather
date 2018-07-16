@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.model.singletons.IconSingleton;
+import com.example.denis.weather.model.support.SaveLoadPreferences;
 import com.example.denis.weather.model.support.WeatherIcon;
 import com.example.denis.weather.model.weather.Weather;
 import com.example.denis.weather.viewModels.MainFragmentVM;
@@ -86,6 +87,9 @@ public class NowWeatherFragment extends Fragment  {
             sdf.setTimeZone(java.util.TimeZone.getDefault());
             String formattedDate = sdf.format(date);
             textViewUpdated.setText(formattedDate);
+            if(SaveLoadPreferences.loadText(getActivity(),GoogleMapFragment.LOCATION_NAME)!=null){
+                textViewUpdated.append("\n"+SaveLoadPreferences.loadText(getActivity(),GoogleMapFragment.LOCATION_NAME));
+            }
 
 
         } else {

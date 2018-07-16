@@ -2,11 +2,11 @@ package com.example.denis.weather.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.BR;
+import com.example.denis.weather.model.support.Geocode;
 import com.example.denis.weather.model.support.SaveLoadPreferences;
 import com.example.denis.weather.viewModels.GoogleMapFragmentVM;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,8 +23,9 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
 
     public static final String TAG = "GoogleMapFragment";
 
-    public static final String Lt = "Latitude";
-    public static final String Ln = "Longitude";
+    public static final String LATITUDE = "Latitude";
+    public static final String LONGITUDE = "Longitude";
+    public static final String LOCATION_NAME = "LocationName";
 
     GoogleMap gMap;
     SupportMapFragment mapFragment;
@@ -76,9 +77,9 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
         double lt = 48.5;
         double ln = 35;
 
-        if (SaveLoadPreferences.loadText(getActivity(), Lt)!=null) {
-            lt = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), Lt));
-            ln = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), Ln));
+        if (SaveLoadPreferences.loadText(getActivity(), LATITUDE)!=null) {
+            lt = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), LATITUDE));
+            ln = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), LONGITUDE));
         }
         LatLng pos = new LatLng(lt, ln);
         gMap.addMarker(new MarkerOptions().position(pos));
@@ -88,8 +89,9 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
 
     @Override
     public void onMapClick(LatLng latLng) {
-        SaveLoadPreferences.saveText(getActivity(), Lt, String.valueOf(latLng.latitude));
-        SaveLoadPreferences.saveText(getActivity(), Ln, String.valueOf(latLng.longitude));
+        SaveLoadPreferences.saveText(getActivity(), LATITUDE, String.valueOf(latLng.latitude));
+        SaveLoadPreferences.saveText(getActivity(), LONGITUDE, String.valueOf(latLng.longitude));
+        SaveLoadPreferences.saveText(getActivity(), LOCATION_NAME, Geocode.getAddress(getContext(),latLng.latitude,latLng.longitude));
         onFinish.onFinish();
 
 
