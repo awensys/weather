@@ -7,7 +7,6 @@ import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.model.support.SaveLoadPreferences;
@@ -36,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
                 .beginTransaction()
                 .add(R.id.fragment_place, mainFragment)
                 .commit();
+
+
+
 
     }
 
