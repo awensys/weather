@@ -2,73 +2,76 @@ package com.example.denis.weather.view.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.denis.weather.R;
+import com.example.denis.weather.model.singletons.IconSingleton;
+import com.example.denis.weather.model.support.WeatherIcon;
+import com.example.denis.weather.model.weather.Datum;
+import com.example.denis.weather.model.weather.Weather;
+import com.example.denis.weather.view.fragments.NowWeatherFragment;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    Weather weather;
+    ArrayList<WeatherIcon>icons;
 
-
-    RecyclerViewAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    public RecyclerViewAdapter(Weather weather) {
+        this.weather = weather;
+        icons = IconSingleton.getInstance().getIcons();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
-        return new ViewHolder(view);
+        View viewItem = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_row, parent, false);
+        return new ViewHolder(viewItem);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
-    }
 
+        for (int i = 0; i < icons.size(); i++) {
+            if (icons.get(i).getName().equals(weather.getHourly().getData().get(position).getIcon())) {
+                holder.iconImageView.setImageResource(icons.get(i).getId());
+            }
+        }
+        long unixSeconds = weather.getHourly().getData().get(position).getTime();
+        Date date = new java.util.Date(unixSeconds * 1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+        sdf.setTimeZone(java.util.TimeZone.getDefault());
+        String formattedDate = sdf.format(date);
+        holder.updateTextView.setText(formattedDate);
+        holder.temperatureTextView.setText(String.valueOf(  weather.getHourly().getData().get(position).getTemperature().intValue()));
+
+    }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return weather.getHourly().getData().size();
     }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView updateTextView;
+        TextView temperatureTextView;
+        ImageView iconImageView;
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
-
-        ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-        //    myTextView = itemView.findViewById(R.id.tvAnimalName);
-        //    itemView.setOnClickListener(this);
+            updateTextView = itemView.findViewById(R.id.updated_text_view_for_list);
+            temperatureTextView = itemView.findViewById(R.id.temperature_text_view_for_list);
+            iconImageView = itemView.findViewById(R.id.icon_image_view_for_list);
         }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
-    }
-
-
-    String getItem(int id) {
-        return mData.get(id);
-    }
-
-
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

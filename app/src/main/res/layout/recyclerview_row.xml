@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_margin="10dp"
+    android:background="@drawable/test"
+    android:layout_height="50dp">
 
 
+    <TextView
+        android:id="@+id/updated_text_view_for_list"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="30dp"
+        android:text="30"
+        android:id="@+id/temperature_text_view_for_list"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
 
+    <ImageView
 
-</android.support.constraint.ConstraintLayout>
+        android:layout_centerVertical="true"
+        android:id="@+id/icon_image_view_for_list"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
+
+</RelativeLayout>

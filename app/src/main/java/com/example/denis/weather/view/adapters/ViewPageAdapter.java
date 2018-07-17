@@ -42,7 +42,6 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
                     .create();
 
             weather = gson.fromJson(mJson, Weather.class);
-            Log.i(TAG, "finishUpdate: " + weather.getTimezone());
         } catch (NullPointerException e) {
 
         }
@@ -59,7 +58,7 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
         if (position == 0) {
             return NowWeatherFragment.newInstance(weather);
         } else if (position == 1) {
-            return new HourlyWeatherFragment();
+            return  HourlyWeatherFragment.newInstance(weather);
         } else if (position == 2) {
             return new DailyWeatherFragment();
         } else return new NowWeatherFragment();
