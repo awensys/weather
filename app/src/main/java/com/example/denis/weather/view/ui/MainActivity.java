@@ -2,6 +2,8 @@ package com.example.denis.weather.view.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import android.support.v7.widget.Toolbar;
@@ -10,9 +12,16 @@ import android.view.MenuItem;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.model.support.SaveLoadPreferences;
+import com.example.denis.weather.model.support.WriteObjectFile;
+import com.example.denis.weather.model.weather.Weather;
+import com.example.denis.weather.view.adapters.RecyclerViewAdapter;
 import com.example.denis.weather.view.fragments.GoogleMapFragment;
 import com.example.denis.weather.view.fragments.MainFragment;
 import com.example.denis.weather.viewModels.MainFragmentVM;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 public class MainActivity extends AppCompatActivity implements MainFragmentVM.OnButtonRefreshClicked, GoogleMapFragment.OnFinishMapFragment, MenuItem.OnMenuItemClickListener {
 
