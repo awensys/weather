@@ -52,8 +52,8 @@ public class MainFragment extends BindingFragment<MainFragmentVM, FragmentMainBi
     @Override
     protected MainFragmentVM onCreateViewModel(FragmentMainBinding binding) {
 
-
         return new MainFragmentVM(this);
+
     }
 
     @Override

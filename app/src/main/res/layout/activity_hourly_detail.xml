@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_images"
+    tools:context=".view.ui.HourlyDetailActivity">
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_icon_iv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/fog" />
+
+    <TextView
+        android:id="@+id/hourly_detail_summary_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hourly_detail_icon_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Some weather"
+
+        android:textSize="20dp" />
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_icon_date_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/hourly_detail_summary_tv"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/date" />
+
+    <TextView
+        android:id="@+id/hourly_detail_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_icon_date_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="21.12.2011"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:id="@+id/hourly_detail_location_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@id/hourly_detail_icon_date_iv"
+        android:layout_below="@id/hourly_detail_icon_date_iv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/location" />
+
+    <TextView
+        android:id="@+id/hourly_detail_location_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_location_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="Dnepr city"
+        android:textSize="15dp" />
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_temperature_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@id/hourly_detail_icon_date_iv"
+        android:layout_below="@id/hourly_detail_location_iv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/temperature" />
+
+    <TextView
+        android:id="@+id/hourly_detail_temperature_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_temperature_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="21 °C"
+        android:textSize="15dp" />
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_humidity_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@id/hourly_detail_icon_date_iv"
+        android:layout_below="@id/hourly_detail_temperature_iv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/humidity" />
+
+    <TextView
+        android:id="@+id/hourly_detail_humidity_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_humidity_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="21 %"
+        android:textSize="15dp" />
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_pressure_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@id/hourly_detail_icon_date_iv"
+        android:layout_below="@id/hourly_detail_humidity_iv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/pressure" />
+
+    <TextView
+        android:id="@+id/hourly_detail_pressure_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_pressure_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="750 mm Hg"
+        android:textSize="15dp" />
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_wind_speed_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@id/hourly_detail_icon_date_iv"
+        android:layout_below="@id/hourly_detail_pressure_iv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/wind_speed" />
+
+    <TextView
+        android:id="@+id/hourly_detail_wind_speed_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_wind_speed_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="4 m/s"
+        android:textSize="15dp" />
+
+
+    <ImageView
+        android:id="@+id/hourly_detail_uv_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@id/hourly_detail_icon_date_iv"
+        android:layout_below="@id/hourly_detail_wind_speed_iv"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/uv" />
+
+    <TextView
+        android:id="@+id/hourly_detail_uv_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hourly_detail_uv_iv"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/hourly_detail_icon_date_iv"
+        android:text="11"
+        android:textSize="15dp" />
+
+
+</RelativeLayout>

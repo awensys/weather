@@ -84,7 +84,7 @@ public class GoogleMapFragment extends BindingFragment<GoogleMapFragmentVM, Frag
         LatLng pos = new LatLng(lt, ln);
         gMap.addMarker(new MarkerOptions().position(pos));
         gMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
-        gMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+        gMap.animateCamera(CameraUpdateFactory.zoomTo(12.0f));
     }
 
     @Override

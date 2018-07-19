@@ -12,9 +12,7 @@ import android.view.MenuItem;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.model.support.SaveLoadPreferences;
-import com.example.denis.weather.model.support.WriteObjectFile;
-import com.example.denis.weather.model.weather.Weather;
-import com.example.denis.weather.view.adapters.RecyclerViewAdapter;
+
 import com.example.denis.weather.view.fragments.GoogleMapFragment;
 import com.example.denis.weather.view.fragments.MainFragment;
 import com.example.denis.weather.viewModels.MainFragmentVM;

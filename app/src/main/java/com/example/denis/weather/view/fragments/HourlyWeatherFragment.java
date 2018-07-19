@@ -1,5 +1,7 @@
 package com.example.denis.weather.view.fragments;
 
+import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,41 +9,51 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.denis.weather.R;
+import com.example.denis.weather.model.support.Geocode;
+import com.example.denis.weather.model.support.SaveLoadPreferences;
 import com.example.denis.weather.model.weather.Weather;
 import com.example.denis.weather.view.adapters.RecyclerHourlyViewAdapter;
+import com.example.denis.weather.view.ui.HourlyDetailActivity;
+import com.example.denis.weather.view.ui.MainActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HourlyWeatherFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HourlyWeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HourlyWeatherFragment extends Fragment {
+
+public class HourlyWeatherFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
+    public static final String TAG = "hourlyWeatherFragment";
+    public static final String ICON = "ICON";
+    public static final String SUMMARY = "SUMMARY";
+    public static final String TEMPERATURE = "TEMPERATURE";
+    public static final String HUMIDITY = "HUMIDITY";
+    public static final String PRESSURE = "PRESSURE";
+    public static final String WIND_SPEED = "WIND_SPEED";
+    public static final String UV = "UV";
+    public static final String DATE = "DATE";
+    public static final String LOCATION = "LOCATION";
     Weather weather;
-    private OnFragmentInteractionListener mListener;
+
     RecyclerView recyclerView;
     RecyclerHourlyViewAdapter adapter;
+    static HourlyWeatherFragment fragment;
 
     public HourlyWeatherFragment() {
         // Required empty public constructor
     }
 
+    public static HourlyWeatherFragment getInstance() {
+        return fragment;
+    }
 
-    // TODO: Rename and change types and number of parameters
     public static HourlyWeatherFragment newInstance(Weather weather) {
-        HourlyWeatherFragment fragment = new HourlyWeatherFragment();
+        fragment = new HourlyWeatherFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM1, weather);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,35 +79,44 @@ public class HourlyWeatherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        adapter = new RecyclerHourlyViewAdapter(weather);
+
         recyclerView = view.findViewById(R.id.recycler_view_hourly);
-        recyclerView.setAdapter(adapter);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new RecyclerHourlyViewAdapter(weather);
+        recyclerView.setAdapter(adapter);
+
         adapter.notifyDataSetChanged();
 
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    @Override
+    public void onClick(View view) {
+        try {
+            if (weather != null) {
+                int count = recyclerView.getChildAdapterPosition(view);
+                Intent intent = new Intent(getActivity(), HourlyDetailActivity.class);
+                intent.putExtra(ICON, weather.getHourly().getData().get(count).getIcon());
+                intent.putExtra(SUMMARY, weather.getHourly().getData().get(count).getSummary());
+                intent.putExtra(TEMPERATURE, weather.getHourly().getData().get(count).getTemperature());
+                intent.putExtra(HUMIDITY, weather.getHourly().getData().get(count).getHumidity());
+                intent.putExtra(PRESSURE, weather.getHourly().getData().get(count).getPressure());
+                intent.putExtra(WIND_SPEED, weather.getHourly().getData().get(count).getWindSpeed());
+                intent.putExtra(UV, weather.getHourly().getData().get(count).getUvIndex());
+                intent.putExtra(DATE, weather.getHourly().getData().get(count).getTime());
+                double lt = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), GoogleMapFragment.LATITUDE));
+                double ln = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), GoogleMapFragment.LONGITUDE));
+                intent.putExtra(LOCATION, Geocode.getAddress(getContext(), lt, ln));
+
+                startActivity(intent);
+            }
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-    }
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.denis.weather.view.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 public class RecyclerDailyViewAdapter extends RecyclerView.Adapter<RecyclerDailyViewAdapter.ViewHolder> {
 
+    public static final String TAG = "RecyclerDailyView";
     Weather weather;
     ArrayList<WeatherIcon> icons;
 
@@ -31,38 +33,40 @@ public class RecyclerDailyViewAdapter extends RecyclerView.Adapter<RecyclerDaily
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View viewItem = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_row, parent, false);
+
         return new ViewHolder(viewItem);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-try {
-    for (int i = 0; i < icons.size(); i++) {
-        if (icons.get(i).getName().equals(weather.getDaily().getData().get(position).getIcon())) {
-            holder.iconImageView.setImageResource(icons.get(i).getId());
+        try {
+            for (int i = 0; i < icons.size(); i++) {
+                if (icons.get(i).getName().equals(weather.getDaily().getData().get(position).getIcon())) {
+                    holder.iconImageView.setImageResource(icons.get(i).getId());
+                }
+            }
+            long unixSeconds = weather.getDaily().getData().get(position).getTime();
+            Date date = new Date(unixSeconds * 1000L);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            sdf.setTimeZone(java.util.TimeZone.getDefault());
+            String formattedDate = sdf.format(date);
+            holder.updateTextView.setText(formattedDate);
+            holder.temperatureTextView.setText(String.valueOf(weather.getDaily().getData().get(position).getTemperatureHigh().intValue()));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-    }
-    long unixSeconds = weather.getDaily().getData().get(position).getTime();
-    Date date = new Date(unixSeconds * 1000L);
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    sdf.setTimeZone(java.util.TimeZone.getDefault());
-    String formattedDate = sdf.format(date);
-    holder.updateTextView.setText(formattedDate);
-    holder.temperatureTextView.setText(String.valueOf(weather.getDaily().getData().get(position).getTemperatureHigh().intValue()));
-} catch (NullPointerException e){
-    e.printStackTrace();
-}
     }
 
     @Override
     public int getItemCount() {
         try {
             return weather.getDaily().getData().size();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
         return 0;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView updateTextView;

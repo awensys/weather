@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class Geocode {
 
-    public static final String TAG="GEOCODE";
+    public static final String TAG = "GEOCODE";
 
     public static String getAddress(Context context, double lt, double ln) {
         String add = "";
@@ -21,10 +21,10 @@ public class Geocode {
             Address obj = addresses.get(0);
 
 //            add = add + "\n" + obj.getCountryName();
-         add = add + "\n" + obj.getAdminArea();
+            add = add + "\n" + obj.getAdminArea();
 
 
-            Log.i(TAG, "getAddress: "+obj.getAdminArea());
+            Log.i(TAG, "getAddress: " + obj.getAdminArea());
 
         } catch (IOException e) {
 
