@@ -12,6 +12,7 @@ import com.example.denis.weather.R;
 import com.example.denis.weather.model.singletons.IconSingleton;
 import com.example.denis.weather.model.support.WeatherIcon;
 import com.example.denis.weather.model.weather.Weather;
+import com.example.denis.weather.view.fragments.DailyWeatherFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class RecyclerDailyViewAdapter extends RecyclerView.Adapter<RecyclerDaily
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View viewItem = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_row, parent, false);
-
+viewItem.setOnClickListener(DailyWeatherFragment.getInstance());
         return new ViewHolder(viewItem);
     }
 

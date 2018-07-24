@@ -38,7 +38,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".view.ui.HourlyDetailActivity"></activity>
+        <activity android:name=".view.ui.HourlyDetailActivity" />
+        <activity android:name=".view.ui.DailyDetailActivity" />
+        <activity android:name=".view.ui.InfoActivity"></activity>
     </application>
 
 </manifest>

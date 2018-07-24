@@ -1,5 +1,6 @@
 package com.example.denis.weather.view.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,11 +54,9 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
         MenuItem menu_map = menu.findItem(R.id.menu_map_button);
-        MenuItem menu_settings = menu.findItem(R.id.menu_settings_button);
         MenuItem menu_info = menu.findItem(R.id.menu_info_button);
 
         menu_map.setOnMenuItemClickListener(this);
-        menu_settings.setOnMenuItemClickListener(this);
         menu_info.setOnMenuItemClickListener(this);
 
 
@@ -107,13 +106,11 @@ public class MainActivity extends AppCompatActivity implements MainFragmentVM.On
                             .addToBackStack("1")
                             .commit();
                 }
-
-
                 break;
 
-            case R.id.menu_settings_button:
-                break;
             case R.id.menu_info_button:
+                Intent intent = new Intent(MainActivity.this,InfoActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

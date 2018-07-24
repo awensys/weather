@@ -7,12 +7,9 @@ import android.widget.TextView;
 
 import com.example.denis.weather.R;
 import com.example.denis.weather.model.singletons.IconSingleton;
-import com.example.denis.weather.model.support.Geocode;
-import com.example.denis.weather.model.support.SaveLoadPreferences;
 import com.example.denis.weather.model.support.WeatherIcon;
-import com.example.denis.weather.view.fragments.GoogleMapFragment;
+import com.example.denis.weather.view.fragments.DailyWeatherFragment;
 import com.example.denis.weather.view.fragments.HourlyWeatherFragment;
-import com.example.denis.weather.view.fragments.NowWeatherFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,21 +43,21 @@ public class HourlyDetailActivity extends AppCompatActivity {
             }
         }
 
-        summary.setText(getIntent().getStringExtra(HourlyWeatherFragment.SUMMARY));
+        summary.setText(getIntent().getStringExtra(DailyWeatherFragment.SUMMARY));
 
-        long unixSeconds = getIntent().getIntExtra(HourlyWeatherFragment.DATE,0);
-        Date temp = new java.util.Date(unixSeconds * 1000L);
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy   HH:mm:ss");
+        long date = getIntent().getIntExtra(HourlyWeatherFragment.DATE,0);
+        Date temp = new java.util.Date(date * 1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy    HH:mm:ss");
         sdf.setTimeZone(java.util.TimeZone.getDefault());
         String formattedDate = sdf.format(temp);
-        date.setText(formattedDate);
+        this.date.setText(formattedDate);
 
         location.setText(getIntent().getStringExtra(HourlyWeatherFragment.LOCATION));
 
         temperature.setText(getIntent().getDoubleExtra(HourlyWeatherFragment.TEMPERATURE,20.0)+" °C");
-        humidity.setText(getIntent().getDoubleExtra(HourlyWeatherFragment.HUMIDITY,20)+" %");
+        humidity.setText(((int)(getIntent().getDoubleExtra(HourlyWeatherFragment.HUMIDITY,20)*100))+ " %");
         pressure.setText(((int) (getIntent().getDoubleExtra(HourlyWeatherFragment.PRESSURE,20)*0.75))+" mm Hg");
-        humidity.setText(getIntent().getDoubleExtra(HourlyWeatherFragment.WIND_SPEED,20)+" m/s");
+        windSpeed.setText(getIntent().getDoubleExtra(HourlyWeatherFragment.WIND_SPEED,20)+" m/s");
         uvIndex.setText(getIntent().getIntExtra(HourlyWeatherFragment.UV,20)+"");
 
 

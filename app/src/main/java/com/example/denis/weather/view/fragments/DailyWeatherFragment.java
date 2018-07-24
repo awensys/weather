@@ -1,5 +1,6 @@
 package com.example.denis.weather.view.fragments;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,36 +13,47 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.denis.weather.R;
+import com.example.denis.weather.model.support.Geocode;
+import com.example.denis.weather.model.support.SaveLoadPreferences;
+import com.example.denis.weather.model.weather.Daily;
 import com.example.denis.weather.model.weather.Weather;
 import com.example.denis.weather.view.adapters.RecyclerDailyViewAdapter;
 import com.example.denis.weather.view.adapters.RecyclerHourlyViewAdapter;
+import com.example.denis.weather.view.ui.DailyDetailActivity;
+import com.example.denis.weather.view.ui.HourlyDetailActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DailyWeatherFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DailyWeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DailyWeatherFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+public class DailyWeatherFragment extends Fragment implements View.OnClickListener {
+
     private static final String ARG_PARAM1 = "param1";
+    public static final String ICON="ICON";
+    public static final String SUMMARY="SUMMARY";
+    public static final String TEMPERATURE_MIN="TEMPERATURE_MIN";
+    public static final String TEMPERATURE_MAX="TEMPERATURE_MAX";
+    public static final String HUMIDITY="HUMIDITY";
+    public static final String PRESSURE="PRESSURE";
+    public static final String WIND_SPEED="WIND_SPEED";
+    public static final String DATE="DATE";
+    public static final String LOCATION="LOCATION";
+    public static final String SUNRISE="SUNRISE";
+    public static final String SUNSET="SUNSET";
 
     private Weather weather;
-RecyclerView recyclerView;
-RecyclerDailyViewAdapter adapter;
+    RecyclerView recyclerView;
+    RecyclerDailyViewAdapter adapter;
+    static DailyWeatherFragment fragment;
 
-    private OnFragmentInteractionListener mListener;
 
     public DailyWeatherFragment() {
         // Required empty public constructor
     }
 
+    public static DailyWeatherFragment getInstance() {
+        return fragment;
+    }
 
     public static DailyWeatherFragment newInstance(Weather weather) {
-        DailyWeatherFragment fragment = new DailyWeatherFragment();
+        fragment = new DailyWeatherFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM1, weather);
         fragment.setArguments(args);
@@ -56,18 +68,14 @@ RecyclerDailyViewAdapter adapter;
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_daily_weather, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -80,35 +88,33 @@ RecyclerDailyViewAdapter adapter;
         super.onViewCreated(view, savedInstanceState);
     }
 
-    //    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+    public void onClick(View view) {
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        try {
+            if (weather != null) {
+                int count = recyclerView.getChildAdapterPosition(view);
+                Intent intent = new Intent(getActivity(), DailyDetailActivity.class);
+                intent.putExtra(ICON, weather.getDaily().getData().get(count).getIcon());
+                intent.putExtra(SUMMARY, weather.getDaily().getData().get(count).getSummary());
+                intent.putExtra(TEMPERATURE_MIN, weather.getDaily().getData().get(count).getTemperatureMin());
+                intent.putExtra(TEMPERATURE_MAX, weather.getDaily().getData().get(count).getTemperatureMax());
+                intent.putExtra(HUMIDITY, weather.getDaily().getData().get(count).getHumidity());
+                intent.putExtra(PRESSURE, weather.getDaily().getData().get(count).getPressure());
+                intent.putExtra(WIND_SPEED, weather.getDaily().getData().get(count).getWindSpeed());
+                intent.putExtra(DATE, weather.getDaily().getData().get(count).getTime());
+                intent.putExtra(SUNRISE, weather.getDaily().getData().get(count).getSunriseTime());
+                intent.putExtra(SUNSET, weather.getDaily().getData().get(count).getSunsetTime());
+                double lt = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), GoogleMapFragment.LATITUDE));
+                double ln = Double.parseDouble(SaveLoadPreferences.loadText(getActivity(), GoogleMapFragment.LONGITUDE));
+                intent.putExtra(LOCATION, Geocode.getAddress(getContext(), lt, ln));
+
+                startActivity(intent);
+            }
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 }

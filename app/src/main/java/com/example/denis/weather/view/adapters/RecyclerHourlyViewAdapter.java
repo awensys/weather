@@ -69,7 +69,7 @@ public class RecyclerHourlyViewAdapter extends RecyclerView.Adapter<RecyclerHour
     public int getItemCount() {
         if (weather == null) {
             return 0;
-        } else return 12;
+        } else return 24;
     }
 
 
